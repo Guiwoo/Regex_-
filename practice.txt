@@ -1,0 +1,131 @@
+// Pactice site : https://regexone.com/lesson/
+// Test site : https://regexr.com/
+
+1. Matching specific charaters
+
+Match	can	  
+Match	man	
+Match	fan	
+Skip	dan	
+Skip	ran	
+Skip	pan	
+
+MyAnswer : [c|m|f]\w+
+Answer : [cmf]an or [^drp]an // 굳이 | or 을 사용하지 않아도 됨
+
+2. Excluding specific characters
+
+Match	hog	Success
+Match	dog	Success
+Skip	bog
+
+MyAnswer : [^b]og
+Answer : [hd]og 
+
+3. Character ranges
+
+Match	Ana	
+Match	Bob	
+Match	Cpc	
+Skip	aax	
+Skip	bby	
+Skip	ccz
+
+MyAnswer : [A-Z]\w+
+Answer : [A-C][n-p][a-c] 
+
+4. Catching some zzz's
+
+Match	wazzzzzup
+Match	wazzzup
+Skip	wazup
+
+MyAnswer : wa(z{2,}up)
+Answer : waz{3,5}up 
+
+5. Mr. Kleene, Mr. Kleene
+
+Match	aaaabcc	
+Match	aabbbbc	
+Match	aacc	
+Skip	a
+
+MyAnswer : a{2,}[bc]+
+Answer : aa+b*c+ // * 없거나 있거나 많거나, + 1개 이상 기억하자
+
+6.  Characters optiona
+
+Match	1 file found?	
+Match	2 files found?	
+Match	24 files found?	
+Skip	No files found.
+
+MyAnswer : [0-9]+(\ files?)\ found\?
+Answer :  \d+ files? found\? 
+
+7. All this whitespace
+
+Match	1.   abc	
+Match	2.	abc	
+Match	3.           abc	
+Skip	4.abc
+
+MyAnswer : \d\.\s+abc
+Answer :  \d\.\s+abc
+
+8. Starting and ending
+
+Match	Mission: successful	
+Skip	Last Mission: unsuccessful	
+Skip	Next Mission: successful upon capture of target
+
+MyAnswer : ^M\w+\: \w+
+Answer :  ^Mission: successful$
+
+9. Match groups
+
+apture	file_record_transcript.pdf	file_record_transcript
+Capture	file_07241999.pdf	file_07241999
+Skip	testfile_fake.pdf.tmp
+
+MyAnswer : (^file\_[a-zA-Z0-9_]+).pdf
+Answer :  ^(file.+)\.pdf$ // .+ 로 나머지 모든 문자열 가져오기 좋은데 ?
+
+10. Nested groups
+
+Capture	Jan 1987	Jan 1987 1987
+Capture	May 1969	May 1969 1969
+Capture	Aug 2011	Aug 2011 2011
+
+MyAnswer : (\w+ (\d+))
+Answer : (\w+ (\d+))
+
+11. More group work
+
+Capture	1280x720	1280 720	
+Capture	1920x1600	1920 1600
+Capture	1024x768	1024 768
+
+MyAnswer : (\d{4})x(\d{3,})
+Answer : (\d+)x(\d+) // 그냥 + 로 다 체크해버리기 만약 자릿수를 알고있다면 좀더 정확한 매칭을 위해 범위를 적어주자
+
+12. It's all conditional
+
+Match	I love cats	
+Match	I love dogs	
+Skip	I love logs	
+Skip	I love cogs
+
+MyAnswer : (.+(cats|dogs)$)
+Answer : I love (cats|dogs) 
+
+13. Other special characters
+
+Match	The quick brown fox jumps over the lazy dog.	
+Match	There were 614 instances of students getting 90.0% or above.	
+Match	The FCC had to censor the network for saying &$#*@!.
+
+MyAnswer : [a-zA-Z0-9 .%&$#*@!.]+
+Answer : .*
+
+// https://regexone.com/problem/matching_decimal_numbers 내일 할꺼
